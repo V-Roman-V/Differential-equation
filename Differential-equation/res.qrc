@@ -2,5 +2,6 @@
     <qresource prefix="/">
         <file>images/graph.png</file>
         <file>images/errors.png</file>
+        <file>images/maxError.png</file>
     </qresource>
 </RCC>
