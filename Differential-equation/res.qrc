@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/graph.png</file>
+        <file>images/errors.png</file>
+    </qresource>
+</RCC>
