@@ -33,6 +33,10 @@ set(PROJECT_SOURCES
         window/mainwindow.ui
         QCustomPlot/qcustomplot.cpp
         QCustomPlot/qcustomplot.h
+        graphics/plot.cpp
+        graphics/plot.h
+        graphics/function.cpp
+        graphics/function.h
         res.qrc
 )
 
