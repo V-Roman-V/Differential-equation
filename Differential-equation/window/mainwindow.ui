@@ -96,7 +96,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Solution of differential equation&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="textFormat">
-             <enum>Qt::MarkdownText</enum>
+             <enum>Qt::AutoText</enum>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -107,7 +107,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget" native="true">
+           <widget class="QCustomPlot" name="widget" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -288,7 +288,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Errors of numerical methods&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="textFormat">
-             <enum>Qt::MarkdownText</enum>
+             <enum>Qt::AutoText</enum>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -299,7 +299,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_2" native="true">
+           <widget class="QCustomPlot" name="widget_2" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -443,7 +443,7 @@
              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Size of maxima error&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
             </property>
             <property name="textFormat">
-             <enum>Qt::MarkdownText</enum>
+             <enum>Qt::AutoText</enum>
             </property>
             <property name="scaledContents">
              <bool>false</bool>
@@ -454,7 +454,7 @@
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_3" native="true">
+           <widget class="QCustomPlot" name="widget_3" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -591,11 +591,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actFunc"/>
+   <addaction name="actSol"/>
    <addaction name="actErr"/>
    <addaction name="actionMaxError"/>
   </widget>
-  <action name="actFunc">
+  <action name="actSol">
    <property name="checkable">
     <bool>false</bool>
    </property>
@@ -610,10 +610,10 @@
      <normaloff>:/images/graph.png</normaloff>:/images/graph.png</iconset>
    </property>
    <property name="text">
-    <string>functions</string>
+    <string>solutions</string>
    </property>
    <property name="toolTip">
-    <string>functions (1)</string>
+    <string>solutions (1)</string>
    </property>
    <property name="shortcut">
     <string>1</string>
@@ -659,6 +659,14 @@
    </property>
   </action>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>QCustomPlot/qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../res.qrc"/>
  </resources>
