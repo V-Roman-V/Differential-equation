@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -51,7 +51,7 @@
     <item>
      <widget class="QStackedWidget" name="pages">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="pGraph">
        <property name="sizePolicy">
@@ -82,7 +82,7 @@
         <item>
          <layout class="QVBoxLayout" name="verticalLayout">
           <property name="spacing">
-           <number>4</number>
+           <number>7</number>
           </property>
           <item>
            <widget class="QLabel" name="label_36">
@@ -130,7 +130,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>0</width>
+              <width>48</width>
               <height>25</height>
              </size>
             </property>
@@ -477,7 +477,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>0</width>
+              <width>48</width>
               <height>25</height>
              </size>
             </property>
@@ -593,7 +593,7 @@
    </attribute>
    <addaction name="actSol"/>
    <addaction name="actErr"/>
-   <addaction name="actionMaxError"/>
+   <addaction name="actMaxErr"/>
   </widget>
   <action name="actSol">
    <property name="checkable">
@@ -643,7 +643,7 @@
     <string>2</string>
    </property>
   </action>
-  <action name="actionMaxError">
+  <action name="actMaxErr">
    <property name="icon">
     <iconset resource="../res.qrc">
      <normaloff>:/images/maxError.png</normaloff>:/images/maxError.png</iconset>

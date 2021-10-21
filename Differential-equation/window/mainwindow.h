@@ -13,7 +13,10 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(QWidget *parent = nullptr);
-    ~MainWindow();
+    ~MainWindow() override;
+
+private slots:
+    void changePage(int pageNumber);
 
 private:
     Ui::MainWindow *ui;
