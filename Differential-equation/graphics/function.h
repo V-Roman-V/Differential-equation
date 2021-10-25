@@ -13,11 +13,18 @@ public:
 
     QString getName() const;
     QPen getPen() const;
-    QSharedPointer<QCPGraphDataContainer> getData() const;
+    QCPScatterStyle getScatterStyle() const;
+    virtual QSharedPointer<QCPGraphDataContainer> getData(const QCPRange& range) const;
 
-private:
+protected:
     QString name;
     QPen pen;
+    QCPScatterStyle scatter_style;
+
+
+    // Generate points from left ot right, returns whether to continue generating
+    virtual bool pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const = 0;
 };
+
 
 #endif // FUNCTION_H

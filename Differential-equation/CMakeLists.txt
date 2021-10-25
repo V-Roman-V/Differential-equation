@@ -37,6 +37,18 @@ set(PROJECT_SOURCES
         graphics/plot.h
         graphics/function.cpp
         graphics/function.h
+        graphics/exactsolution.cpp
+        graphics/exactsolution.h
+        graphics/eulermethod.cpp
+        graphics/eulermethod.h
+        graphics/improvedeulermethod.cpp
+        graphics/improvedeulermethod.h
+        graphics/rungekuttamethod.cpp
+        graphics/rungekuttamethod.h
+        graphics/approximationmethod.cpp
+        graphics/approximationmethod.h
+        graphics/parameters.cpp
+        graphics/parameters.h
         res.qrc
 )
 
