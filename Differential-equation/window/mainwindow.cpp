@@ -23,7 +23,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actMaxErr, &QAction::triggered, this, [=](){pageChange(2);});
 
     // connect press to change base point
-    connect(ui->SolutionPlot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(basePointChange(QMouseEvent*)));
+    connect(ui->SolutionPlot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this, SLOT(basePointChange(QMouseEvent*)));
+    // connect press to change base point
+    ui->StepSlider->setRange(1,1500);
+    connect(ui->StepSlider, SIGNAL(valueChanged(int)), this, SLOT(stepChange(int)));
+    ui->StepSlider->setValue(300);
 
     // connect Timer to update graphics
     connect(&update_timer, SIGNAL(timeout()), this, SLOT(graphUpdate()));
@@ -56,4 +60,10 @@ void MainWindow::basePointChange(QMouseEvent *event)
     double t = (pos.x() - left)/width;
     double x = ui->SolutionPlot->xAxis->range().lower + ui->SolutionPlot->xAxis->range().size()*t;
     param.setBasePoint({x, exact.getY(x)});
+}
+
+void MainWindow::stepChange(int value)
+{
+    ui->StepViewer->setText( QString::number(value/1000.));
+    param.setStep(value/1000.);
 }

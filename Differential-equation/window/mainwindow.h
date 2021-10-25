@@ -27,6 +27,8 @@ private slots:
     void graphUpdate();
     void basePointChange(QMouseEvent*);
 
+    void stepChange(int value);
+
 private:
     Parameters param;
     ExactSolution exact;
