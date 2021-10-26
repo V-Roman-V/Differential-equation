@@ -2,7 +2,10 @@
 
 RungeKuttaMethod::RungeKuttaMethod(ExactSolution* eq, Parameters* p)
     :ApproximationMethod("Runge Kutta",eq, p)
-{}
+{
+    pen.setColor(QColor(171,183,142));
+}
+
 
 bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
 {

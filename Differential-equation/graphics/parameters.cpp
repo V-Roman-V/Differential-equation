@@ -7,6 +7,7 @@ Parameters::Parameters()
 {
     scatter_style = QCPScatterStyle::ssCircle;
     pen.setWidthF(1);
+    pen.setColor(QColor(216,102,51));
 }
 
 bool Parameters::pointGenerator(double, QSharedPointer<QCPGraphDataContainer>& data) const

@@ -10,6 +10,7 @@ class Function
 {
 public:
     Function(const QString& name);
+    virtual ~Function()=default;
 
     QString getName() const;
     QPen getPen() const;

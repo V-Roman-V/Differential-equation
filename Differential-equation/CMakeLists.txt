@@ -49,6 +49,8 @@ set(PROJECT_SOURCES
         graphics/approximationmethod.h
         graphics/parameters.cpp
         graphics/parameters.h
+        graphics/lterror.cpp
+        graphics/lterror.h
         res.qrc
 )
 

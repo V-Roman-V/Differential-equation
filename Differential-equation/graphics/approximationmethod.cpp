@@ -3,8 +3,14 @@
 ApproximationMethod::ApproximationMethod(const QString& name, ExactSolution *eq, Parameters* p)
     : Function(name),
       eq(eq),
-      p(p)
+      p(p),
+      lte(new LTError(name))
 {}
+
+ApproximationMethod::~ApproximationMethod()
+{
+    delete lte;
+}
 
 QSharedPointer<QCPGraphDataContainer> ApproximationMethod::getData(const QCPRange &range) const
 {
@@ -30,6 +36,13 @@ QSharedPointer<QCPGraphDataContainer> ApproximationMethod::getData(const QCPRang
     data->sort();
     for(double i = base.key + step; i <= right; i+=step) // go to right
         if(!rightGenerator(i,prev,data))break;
+
+    //culculate LTE
+    auto LTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
+    for(const auto& point: *data)
+        LTEdata->add({point.key, abs(point.value - eq->getY(point.key))});
+    lte->setData(LTEdata);
+
     return data;
 }
 
@@ -38,4 +51,7 @@ bool ApproximationMethod::pointGenerator(double, QSharedPointer<QCPGraphDataCont
     return false;
 }
 
-
+LTError *ApproximationMethod::getLte() const
+{
+    return lte;
+}

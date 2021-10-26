@@ -1,12 +1,15 @@
 #include "plot.h"
 
-Plot::Plot(QCustomPlot *plot, QObject *parent)
+Plot::Plot(QCustomPlot *plot, bool interact, QString xAxis, QString yAxis, QObject *parent)
     : QObject(parent),
+      interact(interact),
+      xName(xAxis),
+      yName(yAxis),
       plot(plot)
 {
-    plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectLegend);
-    plot->xAxis->setLabel("x Axis");
-    plot->yAxis->setLabel("y Axis");
+    if(interact) plot->setInteractions(QCP::iRangeDrag | QCP::iRangeZoom | QCP::iSelectLegend);
+    plot->xAxis->setLabel(xName);
+    plot->yAxis->setLabel(yName);
 
     hidden_font.setPointSize(10);
     hidden_font.setItalic(true);
@@ -24,7 +27,7 @@ Plot::Plot(QCustomPlot *plot, QObject *parent)
 }
 
 Plot::Plot(const Plot &plot)
-    : Plot(plot.plot,plot.parent())
+    : Plot(plot.plot, plot.interact, plot.xName, plot.yName, plot.parent())
 {}
 
 
@@ -41,10 +44,9 @@ void Plot::addGraphs(const std::vector<Function*> &graphs)
 
 void Plot::update()
 {
-    for(size_t i=0; i < graphs.size(); i++){
-        if(plot->graph(i)->visible())
-            plot->graph(i)->setData(graphs[i]->getData(plot->xAxis->range()));
-    }
+    for(size_t i=0; i < graphs.size(); i++)
+        plot->graph(i)->setData(graphs[i]->getData(plot->xAxis->range()));
+    if(!interact) plot->rescaleAxes(true);
     plot->replot();
 }
 

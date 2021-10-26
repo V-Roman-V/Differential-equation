@@ -13,7 +13,7 @@ class Plot : public QObject
     Q_OBJECT
 
 public:
-    Plot(QCustomPlot* plot, QObject *parent = nullptr);
+    Plot(QCustomPlot *plot, bool interact, QString xAxis, QString yAxis, QObject *parent = nullptr);
     Plot(const Plot& plot);
 
     void addGraphs(const std::vector<Function *> &graphs);
@@ -27,6 +27,8 @@ private slots:
 
 private:
     std::vector<Function*> graphs;
+    bool interact;
+    QString xName, yName;
     QFont legend_font, hidden_font;
     QCustomPlot* plot;
 };

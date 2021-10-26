@@ -2,7 +2,10 @@
 
 ImprovedEulerMethod::ImprovedEulerMethod(ExactSolution* eq, Parameters* p)
     : ApproximationMethod("Improved Euler",eq, p)
-{}
+{
+    pen.setColor(QColor(161,40,90));
+}
+
 
 bool ImprovedEulerMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
 {

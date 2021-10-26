@@ -2,7 +2,9 @@
 
 ExactSolution::ExactSolution()
     :Function("Exact")
-{}
+{
+    pen.setColor(QColor(10,10,10));
+}
 
 bool ExactSolution::pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const
 {

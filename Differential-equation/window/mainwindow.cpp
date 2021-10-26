@@ -10,11 +10,11 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    graphs.emplace_back(ui->SolutionPlot, this);
-    graphs.emplace_back(ui->ErrorPlot, this);
-    graphs.emplace_back(ui->MaxErrPlot, this);
+    graphs.emplace_back(ui->SolutionPlot, true, "X axis", "Y axis", this);
+    graphs.emplace_back(ui->ErrorPlot,   false, "X axis", "LTE", this);
+    graphs.emplace_back(ui->MaxErrPlot,  false, "Step"  , "LTE", this);
     graphs[0].addGraphs({&exact, &euler, &impr_euler, &runge_kutta, &param});
-    graphs[1].addGraphs({&euler, &impr_euler, &runge_kutta});
+    graphs[1].addGraphs({euler.getLte(), impr_euler.getLte(), runge_kutta.getLte()});
     graphs[2].addGraphs({&euler, &impr_euler, &runge_kutta});
 
     // connect Action buttons with a page change

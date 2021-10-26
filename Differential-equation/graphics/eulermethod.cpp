@@ -1,7 +1,9 @@
 #include "eulermethod.h"
 EulerMethod::EulerMethod(ExactSolution* eq, Parameters* p)
     : ApproximationMethod("Euler",eq,p)
-{}
+{
+    pen.setColor(QColor(21,225,235));
+}
 
 bool EulerMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
 {
