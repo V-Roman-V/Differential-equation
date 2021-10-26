@@ -17,7 +17,7 @@ protected:
 
 private:
     // We need to define the function, since it is purely virtual
-    bool pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const override;
+    bool pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
 };
 
 #endif // MAXLTE_H

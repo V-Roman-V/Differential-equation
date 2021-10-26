@@ -17,7 +17,7 @@ void MaxLTE::setData(const QSharedPointer<QCPGraphDataContainer> &value)
     data = value;
 }
 
-bool MaxLTE::pointGenerator(double, QSharedPointer<QCPGraphDataContainer> &) const
+bool MaxLTE::pointGenerator(double, double step, QSharedPointer<QCPGraphDataContainer> &) const
 {
     return false;
 }

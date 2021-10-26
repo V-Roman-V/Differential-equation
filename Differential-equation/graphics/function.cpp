@@ -17,7 +17,7 @@ QSharedPointer<QCPGraphDataContainer> Function::getData(const QCPRange& range) c
     auto data = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
     double step = std::min(range.size()/200, 1.);
     for(double i = range.lower-step; i<range.upper+step; i+=step)
-        if(!pointGenerator(i, data))break;
+        if(!pointGenerator(i, step, data))break;
     return data;
 }
 

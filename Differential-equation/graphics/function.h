@@ -26,7 +26,7 @@ protected:
     QCPScatterStyle scatter_style;
 
     // Generate points from left ot right, returns whether to continue generating
-    virtual bool pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const = 0;
+    virtual bool pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const = 0;
 };
 
 

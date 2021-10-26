@@ -17,7 +17,7 @@ void LTError::setData(const QSharedPointer<QCPGraphDataContainer> &value)
     data = value;
 }
 
-bool LTError::pointGenerator(double, QSharedPointer<QCPGraphDataContainer> &) const
+bool LTError::pointGenerator(double, double step, QSharedPointer<QCPGraphDataContainer> &) const
 {
     return false;
 }

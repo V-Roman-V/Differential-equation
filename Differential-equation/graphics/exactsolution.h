@@ -14,7 +14,13 @@ public:
     double getDifY(const QCPGraphData& p) const;
 
 protected:
-    bool pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const override;
+    bool pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
+
+private:
+    std::function<double(double)> y;
+    std::function<double(double,double)> difY;
+    std::vector<double> infDisc;
+    std::vector<double> otherDisc;
 };
 
 #endif // EXACTSOLUTION_H

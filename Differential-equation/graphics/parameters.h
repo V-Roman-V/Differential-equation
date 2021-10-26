@@ -7,7 +7,7 @@ class Parameters : public Function
 {
 public:
     Parameters();
-    bool pointGenerator(double t, QSharedPointer<QCPGraphDataContainer>& data) const override;
+    bool pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
 
     void setBasePoint(const QCPGraphData &value);
     void setStep(double value);

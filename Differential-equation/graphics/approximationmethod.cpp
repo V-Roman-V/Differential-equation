@@ -82,7 +82,7 @@ MaxLTE *ApproximationMethod::getMaxlte() const
     return maxlte;
 }
 
-bool ApproximationMethod::pointGenerator(double, QSharedPointer<QCPGraphDataContainer> &) const
+bool ApproximationMethod::pointGenerator(double, double step, QSharedPointer<QCPGraphDataContainer> &) const
 {
     return false;
 }

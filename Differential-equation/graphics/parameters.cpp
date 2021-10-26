@@ -9,7 +9,7 @@ Parameters::Parameters()
     pen.setWidthF(1);
 }
 
-bool Parameters::pointGenerator(double, QSharedPointer<QCPGraphDataContainer>& data) const
+bool Parameters::pointGenerator(double, double step, QSharedPointer<QCPGraphDataContainer>& data) const
 {
     double x = base_point.key, y = base_point.value;
     data->add({x,-1e5});
