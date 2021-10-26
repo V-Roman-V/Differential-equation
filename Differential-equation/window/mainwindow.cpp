@@ -42,6 +42,8 @@ MainWindow::MainWindow(QWidget *parent)
     NegativeDirect.setChecked(true);
     ui->statBar->addWidget(&PositiveDirect);
     ui->statBar->addWidget(&NegativeDirect);
+
+    ui->SolutionPlot->xAxis->setRange(1,9);
 }
 
 MainWindow::~MainWindow()
