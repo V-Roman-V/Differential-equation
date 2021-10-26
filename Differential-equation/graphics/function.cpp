@@ -1,12 +1,15 @@
 #include "function.h"
 
 Function::Function(const QString& name)
+    : Function(name, QColor(std::rand()%245+10, std::rand()%245+10, std::rand()%245+10))
+{}
+
+Function::Function(const QString &name, const QColor &color)
     : name(name),
       scatter_style(QCPScatterStyle::ssNone)
 {
-    pen.setColor(QColor(std::rand()%245+10, std::rand()%245+10, std::rand()%245+10));
+    pen.setColor(color);
     pen.setWidthF(2);
-
 }
 
 QSharedPointer<QCPGraphDataContainer> Function::getData(const QCPRange& range) const
@@ -16,6 +19,11 @@ QSharedPointer<QCPGraphDataContainer> Function::getData(const QCPRange& range) c
     for(double i = range.lower-step; i<range.upper+step; i+=step)
         if(!pointGenerator(i, data))break;
     return data;
+}
+
+void Function::setPen(const QPen &value)
+{
+    pen = value;
 }
 
 QCPScatterStyle Function::getScatterStyle() const

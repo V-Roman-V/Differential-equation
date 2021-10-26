@@ -51,6 +51,8 @@ set(PROJECT_SOURCES
         graphics/parameters.h
         graphics/lterror.cpp
         graphics/lterror.h
+        graphics/maxlte.cpp
+        graphics/maxlte.h
         res.qrc
 )
 

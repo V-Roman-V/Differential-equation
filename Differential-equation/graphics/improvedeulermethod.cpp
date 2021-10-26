@@ -7,9 +7,8 @@ ImprovedEulerMethod::ImprovedEulerMethod(ExactSolution* eq, Parameters* p)
 }
 
 
-bool ImprovedEulerMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
+bool ImprovedEulerMethod::leftGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
 {
-    double step = p->step();
     double px = prev.key, py = prev.value;
 
     double k1 = eq->getDifY(prev);
@@ -21,9 +20,8 @@ bool ImprovedEulerMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPoi
     return true;
 }
 
-bool ImprovedEulerMethod::rightGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
+bool ImprovedEulerMethod::rightGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
 {
-    double step = p->step();
     double px = prev.key, py = prev.value;
 
     double k1 = eq->getDifY(prev);

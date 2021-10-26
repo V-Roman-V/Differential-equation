@@ -11,13 +11,20 @@ public:
 
     void setBasePoint(const QCPGraphData &value);
     void setStep(double value);
+    void setPositive(bool positive);
+    void setNegative(bool negative);
 
-    QCPGraphData base();
-    double       step();
+    QCPGraphData base()  const;
+    double       step()  const;
+    QCPRange     range() const;
+    bool         positive() const;
+    bool         negative() const;
 
 private:
     QCPGraphData base_point;
     double _step;
+    bool _positive;
+    bool _negative;
 };
 
 #endif // BASELINE_H

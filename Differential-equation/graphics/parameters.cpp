@@ -1,13 +1,12 @@
 #include "parameters.h"
 
 Parameters::Parameters()
-    : Function("Base point"),
+    : Function("Base point", QColor(216,102,51)),
       base_point(1,0.5),
       _step(0.4)
 {
     scatter_style = QCPScatterStyle::ssCircle;
     pen.setWidthF(1);
-    pen.setColor(QColor(216,102,51));
 }
 
 bool Parameters::pointGenerator(double, QSharedPointer<QCPGraphDataContainer>& data) const
@@ -28,12 +27,32 @@ void Parameters::setStep(double value)
     _step = value;
 }
 
-QCPGraphData Parameters::base()
+QCPGraphData Parameters::base() const
 {
     return base_point;
 }
 
-double Parameters::step()
+double Parameters::step() const
 {
     return _step;
+}
+
+bool Parameters::positive() const
+{
+    return _positive;
+}
+
+bool Parameters::negative() const
+{
+    return _negative;
+}
+
+void Parameters::setNegative(bool negative)
+{
+    _negative = negative;
+}
+
+void Parameters::setPositive(bool positive)
+{
+    _positive = positive;
 }

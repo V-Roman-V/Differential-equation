@@ -25,9 +25,11 @@ public:
 private slots:
     void pageChange(int page_number);
     void graphUpdate();
+    void graphUpdateMaxLTE();
     void basePointChange(QMouseEvent*);
-
     void stepChange(int value);
+    void dirPosChange(int pos);
+    void dirNegChange(int pos);
 
 private:
     Parameters param;
@@ -39,5 +41,8 @@ private:
     std::vector<Plot> graphs;
     Ui::MainWindow *ui;
     QTimer update_timer;
+
+    QCheckBox PositiveDirect;
+    QCheckBox NegativeDirect;
 };
 #endif // MAINWINDOW_H

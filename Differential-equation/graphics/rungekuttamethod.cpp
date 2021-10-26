@@ -7,9 +7,8 @@ RungeKuttaMethod::RungeKuttaMethod(ExactSolution* eq, Parameters* p)
 }
 
 
-bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
+bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
 {
-    double step = p->step();
     double px = prev.key, py = prev.value;
 
     double k1 = eq->getDifY(prev);
@@ -23,9 +22,8 @@ bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, QSharedPointe
     return true;
 }
 
-bool RungeKuttaMethod::rightGenerator(double t, QCPGraphData& prev, QSharedPointer<QCPGraphDataContainer> &data) const
+bool RungeKuttaMethod::rightGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
 {
-    double step = p->step();
     double px = prev.key, py = prev.value;
 
     double k1 = eq->getDifY(prev);

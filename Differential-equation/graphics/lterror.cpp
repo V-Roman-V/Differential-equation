@@ -2,7 +2,9 @@
 
 LTError::LTError(const QString& name)
     : Function(name)
-{}
+{
+    data = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
+}
 
 QSharedPointer<QCPGraphDataContainer> LTError::getData(const QCPRange &) const
 {
@@ -11,6 +13,7 @@ QSharedPointer<QCPGraphDataContainer> LTError::getData(const QCPRange &) const
 
 void LTError::setData(const QSharedPointer<QCPGraphDataContainer> &value)
 {
+    data.clear();
     data = value;
 }
 
