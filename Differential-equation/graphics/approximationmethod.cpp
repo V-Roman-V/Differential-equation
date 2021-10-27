@@ -4,23 +4,18 @@ ApproximationMethod::ApproximationMethod(const QString& name, ExactSolution *eq,
     : Function(name),
       eq(eq),
       p(p),
-      lte(new LTError(name)),
-      maxlte( new MaxLTE(name))
+      lte(name),
+      gte(name),
+      maxlte(name),
+      maxgte(name)
 {}
-
-ApproximationMethod::~ApproximationMethod()
-{
-    delete lte;
-    delete maxlte;
-}
 
 QSharedPointer<QCPGraphDataContainer> ApproximationMethod::getData(const QCPRange &range) const
 {
-    double ml;
-    return calculateData(range, p->step(), ml, true);
+    return calculateData(range, p->step(), false);
 }
 
-QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateData(const QCPRange& range, double step, double& maxLTE, bool updateLTE)  const
+QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateData(const QCPRange& range, double step, bool useExact) const
 {
     auto data = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
     const auto& base = p->base();
@@ -38,51 +33,106 @@ QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateData(const Q
     QCPGraphData prev =  base;
     data->add(base);
     if(p->negative())
-        for(double i = base.key - step; i > left + 1e-4; i-=step) // go to left
-            if(!leftGenerator(i,prev,step,data))break;
+        for(double i = base.key - step; i > left + 1e-4; i-=step){ // go to left
+            const auto& point = leftGenerator(i,prev,step);
+            data->add(point);
+            prev = (useExact)?QCPGraphData{i,eq->getY(i)}:point;
+        }
     prev = base;
     data->sort();
     if( p->positive())
-        for(double i = base.key + step; i < right - 1e-4; i+=step) // go to right
-            if(!rightGenerator(i,prev,step,data))break;
-
-    //calculate LTE and maxLTE
-    maxLTE = 0;
-    auto LTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
-    for(const auto& point: *data){
-        double lte = abs(point.value - eq->getY(point.key));
-        if(lte > maxLTE) maxLTE = lte;
-        LTEdata->add({point.key, lte});
-    }
-    if(updateLTE)lte->setData(LTEdata);
-
+        for(double i = base.key + step; i < right - 1e-4; i+=step){ // go to right
+            const auto& point = rightGenerator(i,prev,step);
+            data->add(point);
+            prev = (useExact)?QCPGraphData{i,eq->getY(i)}:point;
+        }
     return data;
 }
 
-void ApproximationMethod::updateMaxLTE(const QCPRange& range, double min, double max, double shift)
+QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateLTE(const QCPRange &range, double step, bool update)
+{
+    const auto& data = calculateData(range, step, true);
+    auto LTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
+    for(const auto& point: *data){
+        double lte = abs(point.value - eq->getY(point.key));
+        LTEdata->add({point.key, lte});
+    }
+    if(update)lte.setData(LTEdata);
+    return LTEdata;
+}
+
+QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateGTE(const QCPRange &range, double step, bool update)
+{
+    const auto& data = calculateData(range, step, false);
+    auto GTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
+    for(const auto& point: *data){
+        double gte = abs(point.value - eq->getY(point.key));
+        GTEdata->add({point.key, gte});
+    }
+    if(update)gte.setData(GTEdata);
+    return GTEdata;
+}
+
+QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateMaxLTE(const QCPRange &range, double min, double max, double shift, bool update)
 {
     auto MaxLTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
     for(double step = min; step<=max; step+=shift){
-        double maxlte;
-        calculateData(range, step, maxlte, false);
+        const auto& ltedata = calculateLTE(range, step, false);
+        double maxlte=0;
+        for(const auto& point: *ltedata)
+            if(point.value > maxlte)maxlte=point.value;
         MaxLTEdata->add({step,maxlte});
     }
-    maxlte->setData(MaxLTEdata);
+    if(update)maxlte.setData(MaxLTEdata);
+    return MaxLTEdata;
 }
 
-LTError *ApproximationMethod::getLte() const
+QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateMaxGTE(const QCPRange &range, double min, double max, double shift, bool update)
 {
-    lte->setPen(getPen());
-    return lte;
+    auto MaxGTEdata = QSharedPointer<QCPGraphDataContainer>(new QCPGraphDataContainer);
+    for(double step = min; step<=max; step+=shift){
+        const auto& gtedata = calculateGTE(range, step, false);
+        double maxgte=0;
+        for(const auto& point: *gtedata)
+            if(point.value > maxgte)maxgte=point.value;
+        MaxGTEdata->add({step,maxgte});
+    }
+    if(update)maxgte.setData(MaxGTEdata);
+    return MaxGTEdata;
 }
 
-MaxLTE *ApproximationMethod::getMaxlte() const
+
+void ApproximationMethod::updateErrors(const QCPRange& range, double min, double max, double shift)
 {
-    maxlte->setPen(getPen());
-    return maxlte;
+    calculateLTE(range, p->step(), true);
+    calculateGTE(range, p->step(), true);
+    calculateMaxLTE(range, min, max, shift, true);
+    calculateMaxGTE(range, min, max, shift, true);
 }
 
-bool ApproximationMethod::pointGenerator(double, double step, QSharedPointer<QCPGraphDataContainer> &) const
+Error *ApproximationMethod::getLte()
+{
+    lte.setPen(getPen());
+    return &lte;
+}
+Error *ApproximationMethod::getGte()
+{
+    gte.setPen(getPen());
+    return &gte;
+}
+Error *ApproximationMethod::getMaxlte()
+{
+    maxlte.setPen(getPen());
+    return &maxlte;
+}
+Error *ApproximationMethod::getMaxgte()
+{
+    maxgte.setPen(getPen());
+    return &maxgte;
+}
+
+
+bool ApproximationMethod::pointGenerator(double, double, QSharedPointer<QCPGraphDataContainer> &) const
 {
     return false;
 }

@@ -18,8 +18,6 @@ public:
 
     void addGraphs(const std::vector<Function *> &graphs);
 
-    void changeEdge( const QCPRange &  newRange);
-
     void update();
 
 private slots:

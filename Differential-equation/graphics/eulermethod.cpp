@@ -5,24 +5,18 @@ EulerMethod::EulerMethod(ExactSolution* eq, Parameters* p)
     pen.setColor(QColor(21,225,235));
 }
 
-bool EulerMethod::leftGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
+QCPGraphData EulerMethod::leftGenerator(double t, const QCPGraphData& prev, double step) const
 {
     double py = prev.value;
 
     double k1 = eq->getDifY(prev);
-    QCPGraphData point{t, py - step*k1};
-    data->add(point);
-    prev = point;
-    return true;
+    return {t, py - step*k1};
 }
 
-bool EulerMethod::rightGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
+QCPGraphData EulerMethod::rightGenerator(double t, const QCPGraphData& prev, double step) const
 {
     double py = prev.value;
 
     double k1 = eq->getDifY(prev);
-    QCPGraphData point{t, py + step*k1};
-    data->add(point);
-    prev = point;
-    return true;
+    return {t, py + step*k1};
 }

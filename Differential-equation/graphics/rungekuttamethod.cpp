@@ -6,8 +6,7 @@ RungeKuttaMethod::RungeKuttaMethod(ExactSolution* eq, Parameters* p)
     pen.setColor(QColor(171,183,142));
 }
 
-
-bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
+QCPGraphData RungeKuttaMethod::leftGenerator(double t, const QCPGraphData& prev, double step) const
 {
     double px = prev.key, py = prev.value;
 
@@ -16,13 +15,10 @@ bool RungeKuttaMethod::leftGenerator(double t, QCPGraphData& prev, double step, 
     double k3 = eq->getDifY({px - step/2, py - step/2*k2});
     double k4 = eq->getDifY({px - step  , py - step  *k3});
 
-    QCPGraphData point{t, py - step/6*(k1 + 2*k2 + 2*k3 + k4)};
-    data->add(point);
-    prev = point;
-    return true;
+    return{t, py - step/6*(k1 + 2*k2 + 2*k3 + k4)};
 }
 
-bool RungeKuttaMethod::rightGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer> &data) const
+QCPGraphData RungeKuttaMethod::rightGenerator(double t, const QCPGraphData& prev, double step) const
 {
     double px = prev.key, py = prev.value;
 
@@ -31,8 +27,5 @@ bool RungeKuttaMethod::rightGenerator(double t, QCPGraphData& prev, double step,
     double k3 = eq->getDifY({px + step/2, py + step/2*k2});
     double k4 = eq->getDifY({px + step  , py + step  *k3});
 
-    QCPGraphData point{t, py + step/6*(k1 + 2*k2 + 2*k3 + k4)};
-    data->add(point);
-    prev = point;
-    return true;
+    return{t, py + step/6*(k1 + 2*k2 + 2*k3 + k4)};
 }

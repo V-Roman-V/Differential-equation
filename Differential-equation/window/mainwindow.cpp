@@ -12,17 +12,24 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+
     graphs.emplace_back(ui->SolutionPlot, true, "X axis", "Y axis", this);
-    graphs.emplace_back(ui->ErrorPlot,   false, "X axis", "LTE", this);
-    graphs.emplace_back(ui->MaxErrPlot,  false, "Step"  , "LTE", this);
+    graphs.emplace_back(ui->LTEPlot,   false, "X axis", "LTE", this);
+    graphs.emplace_back(ui->GTEPlot,   false, "X axis", "GTE", this);
+    graphs.emplace_back(ui->MaxLTEPlot,  false, "Step"  , "LTE", this);
+    graphs.emplace_back(ui->MaxGTEPlot,  false, "Step"  , "GTE", this);
     graphs[0].addGraphs({&exact, &euler, &impr_euler, &runge_kutta, &param});
     graphs[1].addGraphs({euler.getLte(), impr_euler.getLte(), runge_kutta.getLte()});
-    graphs[2].addGraphs({euler.getMaxlte(), impr_euler.getMaxlte(), runge_kutta.getMaxlte()});
+    graphs[2].addGraphs({euler.getGte(), impr_euler.getGte(), runge_kutta.getGte()});
+    graphs[3].addGraphs({euler.getMaxlte(), impr_euler.getMaxlte(), runge_kutta.getMaxlte()});
+    graphs[4].addGraphs({euler.getMaxgte(), impr_euler.getMaxgte(), runge_kutta.getMaxgte()});
 
     // connect Action buttons with a page change
     connect(ui->actSol,    &QAction::triggered, this, [=](){pageChange(0);});
-    connect(ui->actErr,    &QAction::triggered, this, [=](){pageChange(1);});
-    connect(ui->actMaxErr, &QAction::triggered, this, [=](){pageChange(2);});
+    connect(ui->actLTE,    &QAction::triggered, this, [=](){pageChange(1);});
+    connect(ui->actGTE,    &QAction::triggered, this, [=](){pageChange(2);});
+    connect(ui->actMaxLTE, &QAction::triggered, this, [=](){pageChange(3);});
+    connect(ui->actMaxGTE, &QAction::triggered, this, [=](){pageChange(4);});
 
     // connect press with change base point
     connect(ui->SolutionPlot, SIGNAL(mouseDoubleClick(QMouseEvent*)), this, SLOT(basePointChange(QMouseEvent*)));
@@ -33,7 +40,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // connect Timer to update graphics
     connect(&update_timer, SIGNAL(timeout()), this, SLOT(graphUpdate()));
-    update_timer.start(25);
+    update_timer.start(40);
 
     // connect checkBox
     connect(&PositiveDirect, SIGNAL(stateChanged(int)),this, SLOT(dirPosChange(int)));
@@ -60,22 +67,21 @@ void MainWindow::pageChange(int page_number)
 
 void MainWindow::graphUpdate()
 {
-    if(ui->pages->currentIndex() == 2)
-        graphUpdateMaxLTE();
+    graphUpdateErrors();
 
     for(auto& graph: graphs)
         graph.update();
 }
 
-void MainWindow::graphUpdateMaxLTE()
+void MainWindow::graphUpdateErrors()
 {
     const auto& range = ui->SolutionPlot->xAxis->range();
     double minS = ui->StepSlider->minimum()/1000.;
     double maxS = ui->StepSlider->maximum()/1000.;
     double step = (maxS-minS)/100.;
-    euler.updateMaxLTE(range, minS, maxS, step);
-    impr_euler.updateMaxLTE(range, minS, maxS, step);
-    runge_kutta.updateMaxLTE(range, minS, maxS, step);
+    euler.updateErrors(range, minS, maxS, step);
+    impr_euler.updateErrors(range, minS, maxS, step);
+    runge_kutta.updateErrors(range, minS, maxS, step);
 }
 
 void MainWindow::basePointChange(QMouseEvent *event)

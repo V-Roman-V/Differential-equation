@@ -10,10 +10,10 @@ public:
 
 protected:
     // Generate points from base to left, returns whether to continue generating. (previous data always exists)
-    bool leftGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
+    QCPGraphData leftGenerator(double t, const QCPGraphData& prev, double step) const override;
 
     // Generate points from base to right, returns whether to continue generating. (previous data always exists)
-    bool rightGenerator(double t, QCPGraphData& prev, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
+    QCPGraphData rightGenerator(double t, const QCPGraphData& prev, double step) const override;
 };
 
 #endif // EULERMETHOD_H

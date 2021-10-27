@@ -5,8 +5,8 @@ ExactSolution::ExactSolution()
 {
     y    = [](double x)          { return 1./(x+1); };
     difY = [](double x, double y){ return y*(y-1)/x;};
-    infDisc   = {-1};
-    otherDisc = {0};
+    infDisc   = {-1}; // Infinite discontinuities
+    otherDisc = {0};// all others discontinuities
 }
 
 bool ExactSolution::pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const

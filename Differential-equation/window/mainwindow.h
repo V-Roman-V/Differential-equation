@@ -25,7 +25,7 @@ public:
 private slots:
     void pageChange(int page_number);
     void graphUpdate();
-    void graphUpdateMaxLTE();
+    void graphUpdateErrors();
     void basePointChange(QMouseEvent*);
     void stepChange(int value);
     void dirPosChange(int pos);

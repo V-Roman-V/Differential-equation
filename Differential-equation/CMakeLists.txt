@@ -49,10 +49,8 @@ set(PROJECT_SOURCES
         graphics/approximationmethod.h
         graphics/parameters.cpp
         graphics/parameters.h
-        graphics/lterror.cpp
-        graphics/lterror.h
-        graphics/maxlte.cpp
-        graphics/maxlte.h
+        graphics/error.cpp
+        graphics/error.h
         res.qrc
 )
 

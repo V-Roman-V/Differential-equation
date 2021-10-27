@@ -1,13 +1,13 @@
-#ifndef MAXLTE_H
-#define MAXLTE_H
+#ifndef LTERROR_H
+#define LTERROR_H
 
 #include "function.h"
 
-class MaxLTE : public Function
+class Error : public Function
 {
 public:
-    MaxLTE(const QString& name);
-    virtual ~MaxLTE() = default;
+    Error(const QString& name);
+    virtual ~Error() = default;
 
     QSharedPointer<QCPGraphDataContainer> getData(const QCPRange& range) const override;
     void setData(const QSharedPointer<QCPGraphDataContainer> &value);
@@ -20,4 +20,4 @@ private:
     bool pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const override;
 };
 
-#endif // MAXLTE_H
+#endif // LTERROR_H

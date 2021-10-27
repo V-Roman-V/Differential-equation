@@ -3,5 +3,9 @@
         <file>images/graph.png</file>
         <file>images/errors.png</file>
         <file>images/maxError.png</file>
+        <file>images/Gerr.png</file>
+        <file>images/Lerr.png</file>
+        <file>images/maxGerr.png</file>
+        <file>images/maxLerr.png</file>
     </qresource>
 </RCC>
