@@ -3,10 +3,10 @@
 ExactSolution::ExactSolution()
     :Function("Exact", QColor(10,10,10))
 {
-    y    = [](double x)          { return 1./(x+1); };
-    difY = [](double x, double y){ return y*(y-1)/x;};
-    infDisc   = {-1}; // Infinite discontinuities
-    otherDisc = {0};// all others discontinuities
+    y    = [](double x)          { return pow(x-1,3); };
+    difY = [](double x, double y){ return 3*pow(y,2./3);};
+    infDisc   = {}; // Infinite discontinuities
+    otherDisc = {};// all others discontinuities
 }
 
 bool ExactSolution::pointGenerator(double t, double step, QSharedPointer<QCPGraphDataContainer>& data) const

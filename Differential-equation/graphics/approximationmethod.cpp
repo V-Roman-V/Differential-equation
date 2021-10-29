@@ -34,7 +34,7 @@ QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateData(const Q
     data->add(base);
     if(p->negative())
         for(double i = base.key - step; i > left + 1e-4; i-=step){ // go to left
-            const auto& point = leftGenerator(i,prev,step);
+            const auto& point = pointGenerator(i,prev,-step);
             data->add(point);
             prev = (useExact)?QCPGraphData{i,eq->getY(i)}:point;
         }
@@ -42,7 +42,7 @@ QSharedPointer<QCPGraphDataContainer> ApproximationMethod::calculateData(const Q
     data->sort();
     if( p->positive())
         for(double i = base.key + step; i < right - 1e-4; i+=step){ // go to right
-            const auto& point = rightGenerator(i,prev,step);
+            const auto& point = pointGenerator(i,prev,step);
             data->add(point);
             prev = (useExact)?QCPGraphData{i,eq->getY(i)}:point;
         }

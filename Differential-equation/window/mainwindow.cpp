@@ -50,7 +50,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->statBar->addWidget(&PositiveDirect);
     ui->statBar->addWidget(&NegativeDirect);
 
-    ui->SolutionPlot->xAxis->setRange(1,9);
+    param.setBasePoint({6, exact.getY(6)});
+    ui->SolutionPlot->xAxis->setRange(6,10);
 }
 
 MainWindow::~MainWindow()

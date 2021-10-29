@@ -30,11 +30,8 @@ protected:
 
     ExactSolution* eq;
 
-    // Generate points from base to left, returns whether to continue generating. (previous data always exists)
-    virtual QCPGraphData leftGenerator(double t, const QCPGraphData& prev, double step) const = 0;
-
-    // Generate points from base to right, returns whether to continue generating. (previous data always exists)
-    virtual QCPGraphData rightGenerator(double t, const QCPGraphData& prev, double step) const = 0;
+    // Generate points by parameter, previous point and and step
+    virtual QCPGraphData pointGenerator(double t, const QCPGraphData& prev, double step) const = 0;
 
 private:
     Parameters* p;
